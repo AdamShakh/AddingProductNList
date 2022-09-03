@@ -1,6 +1,6 @@
 <template>
 <div class="rootContainer">
-    <span class="headline">Добавление товара</span>
+    <p class="headtitle">Добавление товара</p>
     <div class="container">
         <adding-form></adding-form>
 
@@ -36,19 +36,21 @@ export default {
 
 <style scoped>
 .rootContainer {
-    /* background: #E5E5E5; */
+    padding: 32px;
+    background: rgba(255, 254, 251, 0.8);
 }
 .container {
     display: flex;
     align-items: flex-start;
 }
-
 .cardsContainer {
     flex-direction: row;
     flex-wrap: wrap;
 
 }
-.headline {
+.headtitle {
+    margin: 0px;
+    margin-bottom: 16px;
     font-family: 'Source Sans Pro';
     font-style: normal;
     font-weight: 600;
@@ -57,5 +59,4 @@ export default {
 
     color: #3F3F3F;
 }
-
 </style>

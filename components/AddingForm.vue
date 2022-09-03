@@ -1,16 +1,16 @@
 <template>
-    <div class="adding-form">
+    <div id="adding-form">
 
-        <p>Наименование товара</p>
+        <p required>Наименование товара</p>
         <input type="text" placeholder="Введите наименование товара">
 
         <p>Описание товара</p>
-        <input type="text" placeholder="Введите описание товара" style="height: 108px;">
+        <textarea placeholder="Введите описание товара" style="height: 97px; padding-top: 11px;"></textarea>
 
-        <p>Ссылка на изображение товара</p>
+        <p required>Ссылка на изображение товара</p>
         <input type="text" placeholder="Введите ссылку">
 
-        <p>Цена товара</p>
+        <p required>Цена товара</p>
         <input type="text" placeholder="Введите цену">
 
         <button>Добавить товар</button>
@@ -18,18 +18,22 @@
     </div>
 </template>
 
-<style scoped>
-.adding-form {
-    width: 332px;
-    height: 440px;
+<style scoped lang="scss">
+@import url('https://fonts.googleapis.com/css?family=Inter');
+
+#adding-form {
+    font-family: 'Source Sans Pro';
+    font-weight: 400;
+    width: 284px;
     padding: 24px;
     background: #FFFEFB;
     box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.04), 0px 6px 10px rgba(0, 0, 0, 0.02);
-    border-radius: 4px;
+    border-radius: 4px; 
 }
 p {
+    margin: 0px;
     margin-bottom: 4px;
-    font-family: 'Source Sans Pro';
+    font-family: inherit;
     font-style: normal;
     font-weight: 400;
     font-size: 10px;
@@ -37,42 +41,50 @@ p {
     letter-spacing: -0.02em;
     color: #49485E;
 }
-input {
-    width: 284px;
+p[required]::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #FF8484;
+    border-radius: 4px;
+}
+input[type="text"], textarea {
+    min-width: 252px;
+    max-width: 252px;
     height: 36px;
+    margin: 0;
+    padding: 0px;
     margin-bottom: 16px;
     background: #FFFEFB;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
     border-radius: 4px;
     border-style: none;
     
-    
+    font-family: inherit;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+    color: #3F3F3F;
+    padding-left: 16px;
+    padding-right: 16px;
+    resize: none;
+    vertical-align: top;
 }
-input::-webkit-input-placeholder {
-    color: #B4B4B4; 
-    margin-left: 16px;
-    margin-top: 10px;
-    position: fixed;
+input::placeholder, textarea::placeholder {
+    color: #B4B4B4;
 }
-input::-moz-placeholder {
-    color: #B4B4B4; 
-    margin-left: 16px;
-    margin-top: 10px;
-    position: fixed;
+input::placeholder {
+    margin-top: 11px;
 }
-input:-moz-placeholder {
-    color: #B4B4B4; 
-    margin-left: 16px;
-    margin-top: 10px;
-    position: fixed;
+input:focus, textarea:focus {
+    outline: 0;
+    color: #212529;
+    background-color: #fff;
+    border-color: #bdbdbd;
+    box-shadow: 0 0 0 0.2rem rgba(158, 158, 158, 0.25);
 }
-input:-ms-input-placeholder {
-    color: #B4B4B4; 
-    margin-left: 16px;
-    margin-top: 10px;
-    position: fixed;
-}
-
 button {
     width: 284px;
     height: 36px;
@@ -80,5 +92,31 @@ button {
     background: #EEEEEE;
     border-radius: 10px;
     border-style: none;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 15px;
+    text-align: center;
+    letter-spacing: -0.02em;
+    color: #B4B4B4;
+}
+
+input::-webkit-input-placeholder {
+    color: #B4B4B4;
+    margin-top: 11px;
+}
+input::-moz-placeholder {
+    color: #B4B4B4;
+    margin-top: 11px;
+}
+input:-moz-placeholder {
+    color: #B4B4B4;
+    margin-top: 11px;
+}
+input:-ms-input-placeholder {
+    color: #B4B4B4;
+    margin-top: 11px;
 }
 </style>
