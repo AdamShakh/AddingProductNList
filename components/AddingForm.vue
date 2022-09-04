@@ -1,22 +1,106 @@
 <template>
     <div id="adding-form">
 
-        <p required>Наименование товара</p>
-        <input type="text" placeholder="Введите наименование товара">
+        <div class="field">
+            <p required>Наименование товара</p>
+            <input id="name" v-model="name" type="text" placeholder="Введите наименование товара">
+        </div>
 
-        <p>Описание товара</p>
-        <textarea placeholder="Введите описание товара" style="height: 97px; padding-top: 11px;"></textarea>
+        <div class="field">
+            <p>Описание товара</p>
+            <textarea id="desc" v-model="desc" placeholder="Введите описание товара">
+            </textarea>
+        </div>
 
-        <p required>Ссылка на изображение товара</p>
-        <input type="text" placeholder="Введите ссылку">
+        <div class="field">
+            <p required>Ссылка на изображение товара</p>
+            <input id="src" v-model="src" type="text" placeholder="Введите ссылку">
+        </div>
 
-        <p required>Цена товара</p>
-        <input type="text" placeholder="Введите цену">
+        <div class="field">
+            <p required>Цена товара</p>
+            <input id="price" v-model="price" type="text" placeholder="Введите цену">
+        </div>
 
-        <button>Добавить товар</button>
+        <button id="addBtn" :class="{ 'button-active' : activeSubmit }" 
+                @click="submit" :disabled="!activeSubmit"
+                >Добавить товар
+        </button>
 
     </div>
 </template>
+
+<script>
+export default {
+    name: 'AddingForm',
+    data: () => ({
+        name: '', desc: '', src: '', price: '',
+        isValid: {name: false, src: false, price: false}, activeSubmit: false,
+    }),
+    mounted() {
+        this.addInvalidityCheck('name');
+        this.addInvalidityCheck('src');
+        this.addInvalidityCheck('price');
+    },
+    methods: {
+        addInvalidityCheck(id) {
+            const el = document.getElementById(id);
+            el.addEventListener('input', (event) => {
+                if (!el.value){
+                    event.target.setAttribute('invalid', true)
+                    event.target.parentNode.setAttribute('warning', true)
+                    this.isValid[id] = false;
+                }
+                else{
+                    event.target.removeAttribute('invalid')
+                    event.target.parentNode.removeAttribute('warning')
+                    this.isValid[id] = true;
+                }
+            });
+        },
+        submit() {
+            let product = {
+                name:  this.name, 
+                desc:  this.desc, 
+                src:   this.src, 
+                price: this.price,
+            }
+            this.reset();
+            let productOut = JSON.stringify(product);
+            alert(productOut);
+        },
+        reset() {
+            this.name = this.desc = this.src = this.price = '';
+            this.isValid = {name: false, src: false, price: false};
+            this.activeSubmit = false;
+        },
+        kMask (num) {
+            while (num.indexOf(' ') !== -1)
+                num = num.replace(' ', '')
+            let n = num.toString();
+            return n.replace(/(\d{1,3}(?=(?:\d\d\d)+(?!\d)))/g, "$1" + " ");
+        }
+    },
+    watch: {
+        isValid: {
+            handler (isIt) {
+                if (isIt.name == true && isIt.src == true && isIt.price == true)
+                    this.activeSubmit = true;
+                else 
+                    this.activeSubmit = false;
+            },deep: true
+        },
+        price(price) {
+            if (!/^\d+$/.test(price.slice(-1))) {
+                this.price = price.replace(price.slice(-1), '')
+            }
+            else {
+                this.price = this.kMask(price)
+            }
+        },
+    },
+}
+</script>
 
 <style scoped lang="scss">
 @import url('https://fonts.googleapis.com/css?family=Inter');
@@ -29,6 +113,9 @@
     background: #FFFEFB;
     box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.04), 0px 6px 10px rgba(0, 0, 0, 0.02);
     border-radius: 4px; 
+}
+.field {
+    margin-bottom: 16px;
 }
 p {
     margin: 0px;
@@ -55,7 +142,6 @@ input[type="text"], textarea {
     height: 36px;
     margin: 0;
     padding: 0px;
-    margin-bottom: 16px;
     background: #FFFEFB;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
     border-radius: 4px;
@@ -72,6 +158,10 @@ input[type="text"], textarea {
     resize: none;
     vertical-align: top;
 }
+textarea {
+    height: 97px;
+    padding-top: 11px;
+}
 input::placeholder, textarea::placeholder {
     color: #B4B4B4;
 }
@@ -84,6 +174,24 @@ input:focus, textarea:focus {
     background-color: #fff;
     border-color: #bdbdbd;
     box-shadow: 0 0 0 0.2rem rgba(158, 158, 158, 0.25);
+}
+input[invalid] {
+    border: 1px solid #FF8484;
+    box-sizing: border-box;
+    min-width: 284px;
+}
+div[warning]::after {
+    display: block;
+    content: 'Поле является обязательным';
+    position: absolute;
+    margin-top: 4px;
+    font-family: inherit;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 8px;
+    line-height: 10px;
+    letter-spacing: -0.02em;
+    color: #FF8484;
 }
 button {
     width: 284px;
@@ -101,6 +209,16 @@ button {
     text-align: center;
     letter-spacing: -0.02em;
     color: #B4B4B4;
+}
+.button-active {
+    background: #7BAE73; 
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); 
+    border-radius: 10px;
+    color: #FFFFFF; 
+    &:hover {
+        color: #ffdc13;
+        cursor: pointer;
+    }
 }
 
 input::-webkit-input-placeholder {

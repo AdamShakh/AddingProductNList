@@ -10,6 +10,7 @@ body {
     background: #E5E5E5;
     font-family: 'Source Sans Pro';
     font-style: normal;
+    margin: 0px;
 }
 
 </style>
