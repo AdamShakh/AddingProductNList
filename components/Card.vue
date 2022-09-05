@@ -11,7 +11,7 @@
 
 <script>
 export default {
-    name: 'card',
+    name: 'Card',
     props: {
         imgSrc:      { type: String, required: true },
         name:        { type: String, required: true },
@@ -22,7 +22,6 @@ export default {
 </script>
 
 <style scoped>
-
 .card {
     background: #FFFEFB;
     box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.04), 0px 6px 10px rgba(0, 0, 0, 0.02);
@@ -62,5 +61,4 @@ img {
     line-height: 30px;
     color: #3F3F3F;
 }
-
 </style>

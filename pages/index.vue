@@ -4,11 +4,11 @@
     <div class="container">
         <adding-form></adding-form>
 
-        <div class="cardsContainer">
-            <!-- <card 
-                v-for="(card, i) in cardsList" :key="i"
+        <div class="cardsContainer" id="cardsList">
+            <card 
+                v-for="(card, i) in cards" :key="i"
                 v-bind=card
-            ></card> -->
+            ></card>
         </div>
     </div>
 </div>
@@ -16,20 +16,31 @@
 
 <script>
 import AddingForm from '@/components/AddingForm.vue'
-// import Card from '@/components/Card.vue'
-// import cardsModel from '@/store/cards.json'
+import Card from '@/components/Card.vue'
+import cardsList from '@/static/cards.json'
 
 export default {
     name: 'IndexPage',
     components: {
-        AddingForm, 
-        // Card
+        AddingForm, Card,
     },
+    data: () => ({
+        cards: cardsList,
+    }),
     created() {
-        // this.cardsList = cardsModel
+        this.$nuxt.$on('newProduct', this.addProduct);
     },
-    beforeDestroy(){
+    methods: {
+        addProduct(product) {
+            let container = document.getElementById('cardsList');
+            container.setAttribute('load', true);
+            setTimeout(() => {
+                product.id = this.cards.length;
+                this.cards.unshift(product);
 
+                container.removeAttribute('load');
+            }, 1000);
+        }
     }
 }
 </script>
@@ -46,7 +57,11 @@ export default {
 .cardsContainer {
     flex-direction: row;
     flex-wrap: wrap;
-
+    opacity: 1;
+    transition: opacity 0.6s;
+}
+.cardsContainer[load] {
+    opacity: 0;
 }
 .headtitle {
     margin: 0px;

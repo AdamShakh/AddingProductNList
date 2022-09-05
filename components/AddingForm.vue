@@ -60,14 +60,13 @@ export default {
         },
         submit() {
             let product = {
+                imgSrc:   this.src, 
                 name:  this.name, 
-                desc:  this.desc, 
-                src:   this.src, 
+                description:  this.desc,
                 price: this.price,
             }
+            this.$nuxt.$emit('newProduct', product);
             this.reset();
-            let productOut = JSON.stringify(product);
-            alert(productOut);
         },
         reset() {
             this.name = this.desc = this.src = this.price = '';
@@ -216,7 +215,7 @@ button {
     border-radius: 10px;
     color: #FFFFFF; 
     &:hover {
-        color: #ffdc13;
+        color: #dffd5ad3;
         cursor: pointer;
     }
 }
