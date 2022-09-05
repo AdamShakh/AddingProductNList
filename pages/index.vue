@@ -1,10 +1,10 @@
 <template>
-<div class="rootContainer">
+<div class="root-container">
     <p class="headtitle">Добавление товара</p>
     <div class="container">
         <adding-form></adding-form>
 
-        <div class="cardsContainer" id="cardsList">
+        <div class="cards-container" id="cardsContainer">
             <card 
                 v-for="(card, i) in cards" :key="i"
                 v-bind=card
@@ -32,7 +32,7 @@ export default {
     },
     methods: {
         addProduct(product) {
-            let container = document.getElementById('cardsList');
+            let container = document.getElementById('cardsContainer');
             container.setAttribute('load', true);
             setTimeout(() => {
                 product.id = this.cards.length;
@@ -46,21 +46,28 @@ export default {
 </script>
 
 <style scoped>
-.rootContainer {
+.root-container {
     padding: 32px;
+    padding-right: 24px;/**/
     background: rgba(255, 254, 251, 0.8);
 }
 .container {
     display: flex;
     align-items: flex-start;
 }
-.cardsContainer {
-    flex-direction: row;
+.cards-container {
+    margin-left: 8px;/*16px;*/
+
+    display: flex;
     flex-wrap: wrap;
+    justify-content: space-around; /*space-evenly;*/
+    align-content: flex-start;
+    align-items: flex-start;
+
     opacity: 1;
     transition: opacity 0.6s;
 }
-.cardsContainer[load] {
+.cards-container[load] {
     opacity: 0;
 }
 .headtitle {
