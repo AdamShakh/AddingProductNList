@@ -1,10 +1,10 @@
 <template>
     <div class="card">
-        <img :src="imgSrc" alt="">
+        <img :src="imgSrc" alt="Продукт">
         <div class="text-block">
-            <h3 class="name">{{ name }}</h3>
+            <p class="name">{{ name }}</p>
             <p class="description">{{ description }}</p>
-            <span class="price">{{ price }} руб.</span>
+            <p class="price">{{ price }} руб.</p>
         </div>
     </div>
 </template>
@@ -17,15 +17,21 @@ export default {
         name:        { type: String, required: true },
         description: { type: String, required: true },
         price:       { type: String, required: true },
-    },
+    }
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .card {
+    width: 332px;
+    height: 423px;
     background: #FFFEFB;
     box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.04), 0px 6px 10px rgba(0, 0, 0, 0.02);
     border-radius: 4px;
+    margin-bottom: 16px;
+    &:hover {
+        cursor: pointer;
+    }
 }
 img {
     width: 332px;
@@ -33,12 +39,14 @@ img {
     border-radius: 4px 4px 0px 0px;
 }
 .text-block {
+    font-family: 'Source Sans Pro';
     padding: 16px;
-    padding-top: 16px;
     padding-bottom: 24px;
 }
 .name {
-    font-family: 'Source Sans Pro';
+    margin: 0px;
+    margin-bottom: 16px;
+    font-family: inherit;
     font-style: normal;
     font-weight: 600;
     font-size: 20px;
@@ -46,7 +54,10 @@ img {
     color: #3F3F3F;
 }
 .description {
-    font-family: 'Source Sans Pro';
+    height: 80px;
+    margin: 0px;
+    margin-bottom: 32px;
+    font-family: inherit;
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
@@ -54,7 +65,8 @@ img {
     color: #3F3F3F;
 }
 .price {
-    font-family: 'Source Sans Pro';
+    margin: 0px;
+    font-family: inherit;
     font-style: normal;
     font-weight: 600;
     font-size: 24px;
