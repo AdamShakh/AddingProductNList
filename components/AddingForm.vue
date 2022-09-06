@@ -66,11 +66,28 @@ export default {
             }
             this.$nuxt.$emit('newProduct', product);
             this.reset();
+            this.successfulSubmit();
         },
         reset() {
             this.name = this.desc = this.src = this.price = '';
             this.isValid = {name: false, src: false, price: false};
             this.activeSubmit = false;
+        },
+        successfulSubmit() { // доп. анимация
+            const name =  document.getElementById('name')
+            const desc =  document.getElementById('desc')
+            const src =   document.getElementById('src')
+            const price = document.getElementById('price')
+            name. setAttribute('success', true)
+            desc. setAttribute('success', true)
+            src.  setAttribute('success', true)
+            price.setAttribute('success', true)
+            setTimeout(() => {
+                name. removeAttribute('success')
+                desc. removeAttribute('success')
+                src.  removeAttribute('success')
+                price.removeAttribute('success')
+            }, 1000);
         },
         kMask (num) {
             while (num.indexOf(' ') !== -1)
@@ -164,6 +181,7 @@ textarea {
 }
 input::placeholder, textarea::placeholder {
     color: #B4B4B4;
+    transition: color 1s;
 }
 input::placeholder {
     margin-top: 11px;
@@ -193,6 +211,22 @@ div[warning]::after {
     letter-spacing: -0.02em;
     color: #FF8484;
 }
+input[success] {
+    border: 1px solid #88ff84;
+    box-sizing: border-box;
+    min-width: 284px;
+}
+textarea[success] {
+    height: 108px;
+    padding-top: 11px;
+    border: 1px solid #88ff84;
+    box-sizing: border-box;
+    min-width: 284px;
+}
+input[success]::placeholder, textarea[success]::placeholder {
+    color: #FFFEFB;
+}
+
 button {
     width: 284px;
     height: 36px;
