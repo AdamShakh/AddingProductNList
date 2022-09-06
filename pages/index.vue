@@ -1,6 +1,8 @@
 <template>
 <div class="root-container">
-    <p class="headtitle">Добавление товара</p>
+    <div id="header" class="header">
+        <p class="headtitle">Добавление товара</p>
+    </div>
     <div class="container">
         <adding-form></adding-form>
 
@@ -17,7 +19,7 @@
 <script>
 import AddingForm from '@/components/AddingForm.vue'
 import Card from '@/components/Card.vue'
-import cardsList from '@/static/cards.json'
+import cardsList from '@/static/products.json'
 
 export default {
     name: 'IndexPage',
@@ -29,23 +31,40 @@ export default {
     }),
     created() {
         this.$nuxt.$on('newProduct', this.addProduct);
+        this.$nuxt.$on('deleteProduct', this.deleteProduct);
     },
     methods: {
-        addProduct(product) {
+        loadAnimation(callback) {
             let container = document.getElementById('cardsContainer');
             container.setAttribute('load', true);
             setTimeout(() => {
-                product.id = this.cards.length;
-                this.cards.unshift(product);
-
+                callback();
                 container.removeAttribute('load');
             }, 1000);
+        },
+        addProduct(product) {
+            this.loadAnimation(() => {
+                product.id = 1;
+                this.cards.forEach(obj => {
+                    if (obj.id > product.id) product.id = obj.id + 1;
+                })
+                this.cards.unshift(product);
+            })
+        },
+        deleteProduct(id) {
+            this.loadAnimation(() => {
+                this.cards = this.cards.filter(obj => {
+                    return obj.id !== id;
+                });
+            })
+        }
+    },
         }
     }
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .root-container {
     padding: 32px;
     padding-right: 24px;/**/
@@ -70,9 +89,12 @@ export default {
 .cards-container[load] {
     opacity: 0;
 }
+.header {
+    height: 51px;
+}
 .headtitle {
     margin: 0px;
-    margin-bottom: 16px;
+    // margin-bottom: 16px;
     font-family: 'Source Sans Pro';
     font-style: normal;
     font-weight: 600;
