@@ -8,7 +8,7 @@
 
         <div class="field">
             <p>Описание товара</p>
-            <textarea id="desc" v-model="desc" placeholder="Введите описание товара">
+            <textarea id="desc" v-model="desc" maxlength="185" placeholder="Введите описание товара">
             </textarea>
         </div>
 
