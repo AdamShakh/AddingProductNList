@@ -73,20 +73,19 @@ export default {
             this.isValid = {name: false, src: false, price: false};
             this.activeSubmit = false;
         },
-        successfulSubmit() { // доп. анимация
-            const name =  document.getElementById('name')
-            const desc =  document.getElementById('desc')
-            const src =   document.getElementById('src')
-            const price = document.getElementById('price')
-            name. setAttribute('success', true)
-            desc. setAttribute('success', true)
-            src.  setAttribute('success', true)
-            price.setAttribute('success', true)
+        successfulSubmit() {
+            const fields = ['name', 'desc', 'src', 'price'];
+            let names = [];
+            fields.forEach(field => {
+                names.push(document.getElementById(field))
+            });
+            names.forEach(field => {
+                field.setAttribute('success', true);
+            })
             setTimeout(() => {
-                name. removeAttribute('success')
-                desc. removeAttribute('success')
-                src.  removeAttribute('success')
-                price.removeAttribute('success')
+                names.forEach(field => {
+                    field.removeAttribute('success');
+                })
             }, 1000);
         },
         kMask (num) {
@@ -252,7 +251,7 @@ button {
     letter-spacing: 0em;
     color: #FFFFFF; 
     &:hover {
-        color: #dffd5ad3;
+        color: rgb(223, 253, 90);
         cursor: pointer;
     }
 }
