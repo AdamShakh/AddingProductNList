@@ -108,21 +108,10 @@ export default {
             } catch(err) { console.log(err) }
         },
         adaptiveSize() {
-            const classNames = ['root-container', 'header', 'headtitle', 'main', 'add-form'];
-            if (window.innerWidth < 750) {
+            if (window.innerWidth < 750)
                 this.isMobile = true;
-                classNames.forEach(className => {
-                    const el = document.getElementsByClassName(className);
-                    el.item(0).setAttribute('mobile', true)
-                })
-            }
-            else {
+            else
                 this.isMobile = false
-                classNames.forEach(className => {
-                    const el = document.getElementsByClassName(className);
-                    el.item(0).removeAttribute('mobile');
-                })
-            }
         },
     },
     watch: {
@@ -146,7 +135,7 @@ export default {
     padding-right: 16px;
     background: rgba(255, 254, 251, 0.8);
 
-    &[mobile] {
+    @media screen and (max-width: 750px) {
         padding: 0px;
         padding-top: 32px;
     }
@@ -168,11 +157,11 @@ export default {
 
         color: #3F3F3F;
 
-        &[mobile] {
+        @media screen and (max-width: 750px) {
             width: auto;
         }
     }
-    &[mobile] {
+    @media screen and (max-width: 750px) {
         justify-content: center;
     }
 }
@@ -229,7 +218,7 @@ export default {
     display: flex;
     align-items: flex-start;
 
-    &[mobile] {
+    @media screen and (max-width: 750px) {
         flex-direction: column;
         align-items: center;
     }
@@ -238,7 +227,7 @@ export default {
         position: sticky;
         top: 24px;
 
-        &[mobile] {
+        @media screen and (max-width: 750px) {
             position: static;
         }
     }
