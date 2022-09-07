@@ -58,6 +58,7 @@ export default {
     margin-bottom: 16px;
     &:hover {
         cursor: pointer;
+        box-shadow: 0px 0px 30px rgba(63, 63, 63, 0.301);
     }
 }
 .product-img {
