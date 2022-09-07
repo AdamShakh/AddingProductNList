@@ -3,8 +3,8 @@
         <img class="product-img" :src="imgSrc" alt="">
         
         <div v-if="deleteAble" class="delete-product-cont">
-            <button class="delete-product" @click="deleteProduct">
-                <img class="trashbin" src="trashbin.svg" alt="">
+            <button class="delete-product" id="deleteBtn" @click="deleteProduct">
+                <img class="trashbin" id="deleteIcon" src="trashbin.svg" alt="">
             </button>
         </div>
 
@@ -38,11 +38,11 @@ export default {
         deleteProduct() {
             this.$nuxt.$emit('deleteProduct', this.id)
         },
-        checkMouseout(event) {
-            const outerCont = document.getElementById('cardsContainer');
-            const outerCont2 = document.getElementById('header');
-            if (event.relatedTarget === outerCont || event.relatedTarget === outerCont2)
+        checkMouseout(event) {     
+            if (event.relatedTarget !== document.getElementById('deleteBtn') 
+                && event.relatedTarget !== document.getElementById('deleteIcon')){
                 this.deleteAble = false
+            }
         }
     }
 }
