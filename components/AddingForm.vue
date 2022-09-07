@@ -8,7 +8,7 @@
 
         <div class="field">
             <p>Описание товара</p>
-            <textarea id="desc" v-model="desc" placeholder="Введите описание товара">
+            <textarea id="desc" v-model="desc" maxlength="185" placeholder="Введите описание товара">
             </textarea>
         </div>
 
@@ -46,12 +46,11 @@ export default {
         addInvalidityCheck(id) {
             const el = document.getElementById(id);
             el.addEventListener('input', (event) => {
-                if (!el.value){
+                if (!el.value) {
                     event.target.setAttribute('invalid', true)
                     event.target.parentNode.setAttribute('warning', true)
                     this.isValid[id] = false;
-                }
-                else{
+                } else {
                     event.target.removeAttribute('invalid')
                     event.target.parentNode.removeAttribute('warning')
                     this.isValid[id] = true;
@@ -111,7 +110,7 @@ export default {
     padding: 24px;
     background: #FFFEFB;
     box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.04), 0px 6px 10px rgba(0, 0, 0, 0.02);
-    border-radius: 4px; 
+    border-radius: 4px;
 }
 .field {
     margin-bottom: 16px;
@@ -213,6 +212,8 @@ button {
     background: #7BAE73; 
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); 
     border-radius: 10px;
+    font-weight: 400;//
+    letter-spacing: 0em;
     color: #FFFFFF; 
     &:hover {
         color: #dffd5ad3;
